@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="./src/index.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="select-algorithm select-functionality">
+        <div class="radio-button-container">
+          <div class="radio-button">
+            <input
+              type="radio"
+              class="radio-button__input"
+              id="radio1"
+              name="radio-group"
+            />
+            <label class="radio-button__label" for="radio1">
+              <span class="radio-button__custom"></span>
+              Ecrypt
+            </label>
+          </div>
+          <div class="radio-button">
+            <input
+              type="radio"
+              class="radio-button__input"
+              id="radio2"
+              name="radio-group"
+            />
+            <label class="radio-button__label" for="radio2">
+              <span class="radio-button__custom"></span>
+              Decrypt
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="select-algorithm">
+        <div class="wrapper">
+          <div class="option">
+            <input
+              class="input"
+              type="radio"
+              name="btn"
+              value="option1"
+              checked=""
+            />
+            <div class="btn">
+              <span class="span">AES</span>
+            </div>
+          </div>
+          <div class="option">
+            <input class="input" type="radio" name="btn" value="option2" />
+            <div class="btn">
+              <span class="span">MD5</span>
+            </div>
+          </div>
+          <div class="option">
+            <input class="input" type="radio" name="btn" value="option3" />
+            <div class="btn">
+              <span class="span">Blowfish</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-container">
+        <form class="file-upload-form">
+          <label for="fileinput" class="file-upload-label">
+            <div class="file-upload-design">
+              <svg viewBox="0 0 640 512" height="1em">
+                <path
+                  d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"
+                ></path>
+              </svg>
+              <p>Drag and Drop</p>
+              <p>or Browse file</p>
+            </div>
+            <input id="fileinput" type="file" />
+            <!-- <input type='button' class="browse-button" id='btnLoad' value='Load' onclick='handleFileSelect();' /> -->
+          </label>
+        </form>
+        <button id ="load-file" class="browse-button">Upload</button>
+      </div>
+    </div>
+    <div class="editor" id="editor"></div>
+  </body>
+  <script>        
+     function init (  ) {
+      console.log("invoked")
+      // Add click event handler to button
+      $( '#load-file' ).click( function () {
+        console.log("clicked")
+        if ( ! window.FileReader ) {
+          return alert( 'FileReader API is not supported by your browser.' );
+        }
+        var $i = $( '#fileinput' ), // Put file input ID here
+          input = $i[0]; // Getting the element from jQuery
+        if ( input.files && input.files[0] ) {
+          file = input.files[0]; // The file
+          fr = new FileReader(); // FileReader instance
+          fr.onload = function () {
+            // Do stuff on onload, use fr.result for contents of file
+            $( '#file-content' ).append( $( '<div/>' ).html( fr.result ) )
+            console.log(fr.result)
+          };
+          fr.readAsText( file );
+          //fr.readAsDataURL( file );
+        } else {
+          // Handle errors here
+          alert( "File not selected or browser incompatible." )
+        }
+      } );
+    };
+    init()
+  </script>
+  <script src="./renderer.js"></script>
+</html>
